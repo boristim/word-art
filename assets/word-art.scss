@@ -1,0 +1,38 @@
+:root {
+  --menu-link-color: black;
+  --menu-link-hover-color: blue;
+}
+
+html {
+  body {
+    #root {
+      width: 100%;
+      margin: 0 auto;
+
+      #topMenu {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        align-items: center;
+        span {
+          a {
+            padding: 5px;
+            text-decoration: none;
+            color: var(--menu-link-color);
+            border-top: 5px solid transparent;
+            &:visited, &:active {
+              color: var(--menu-link-color);
+            }
+
+            &:hover {
+              color: var(--menu-link-hover-color);
+            }
+            &.active{
+              border-top: 5px solid limegreen;
+            }
+          }
+        }
+      }
+    }
+  }
+}
