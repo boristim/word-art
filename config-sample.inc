@@ -19,7 +19,7 @@ define('PARSER_FILM_URL', 'cinema.php?id=%d');
 define('CRON_KEY', '111');
 
 // Cache directory
-define('CACHE_DIRECTORY', __DIR__ . '/cache/');
+define('CACHE_PARSER_DIRECTORY', __DIR__ . '/cache/');
 // Parser files cache period, in seconds
 define('CACHE_PARSER_PERIOD', 3600 * 24 * 7);
 //define('CACHE_PARSER_PERIOD', 0);
@@ -28,3 +28,5 @@ define('CACHE_PARSER_PERIOD', 3600 * 24 * 7);
 define('IMAGE_DIRECTORY', __DIR__ . '/images/');
 // HTML templates
 define('TEMPLATE_DIRECTORY', __DIR__ . '/tpl/');
+// images web
+define('WEB_IMAGE_DIRECTORY', '/images/');

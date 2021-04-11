@@ -5,8 +5,6 @@ namespace Db;
 
 use Exception;
 use Generator;
-use mysqli;
-
 
 trait ModelParser
 {
@@ -56,7 +54,6 @@ trait ModelParser
         }
         extract($values);
         $insertStmt->execute();
-        _log($name,1);
         return $this->db->insert_id;
     }
 

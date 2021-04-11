@@ -15,7 +15,7 @@ if ((php_sapi_name() === 'cli') && ($opt = getopt('k::')) && isset($opt['k']) &&
     try {
         (new Parser())->parse();
     } catch (Exception $exception) {
-        _log($exception->getMessage(), 1);
+        _log($exception->getMessage(),1);
     }
 } else {
     require_once 'inc/ModelView.php';

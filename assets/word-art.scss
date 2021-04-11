@@ -1,25 +1,32 @@
 :root {
   --menu-link-color: black;
   --menu-link-hover-color: blue;
+  --grid-horisontal: 25px;
+  --grid-verical: 20px;
 }
 
 html {
   body {
     #root {
-      width: 100%;
+      width: 70%;
       margin: 0 auto;
+      font-family: Arial, serif;
 
       #topMenu {
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-evenly;
         align-items: center;
+
         span {
+          text-align: center;
+
           a {
-            padding: 5px;
+            padding: calc(var(--grid-verical) / 2) calc(var(--grid-horisontal) / 2);
             text-decoration: none;
             color: var(--menu-link-color);
             border-top: 5px solid transparent;
+
             &:visited, &:active {
               color: var(--menu-link-color);
             }
@@ -27,12 +34,169 @@ html {
             &:hover {
               color: var(--menu-link-hover-color);
             }
-            &.active{
-              border-top: 5px solid limegreen;
+
+            &.active {
+              color: limegreen;
             }
           }
         }
       }
+
+      #loadsSelect {
+        margin: var(--grid-verical) 0;
+      }
+
+      #filmPopupWindow {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(191, 191, 191, 0.33);
+
+        .popup-inner {
+          background: white;
+          position: fixed;
+          width: 50%;
+          margin: calc(var(--grid-verical)) calc(25%);
+          padding: var(--grid-verical) var(--grid-horisontal);
+          box-shadow: 0 0 10px silver;
+
+          h3 {
+            margin-right: calc(var(--grid-verical) * 4);
+          }
+
+          .close-popup {
+            float: right;
+            font-size: calc(var(--grid-verical) * 3);
+            font-weight: bold;
+            cursor: pointer;
+
+            &:hover {
+              text-shadow: 0 0 10px silver;
+            }
+          }
+
+          .film-info-wrapper {
+            display: flex;
+            flex-basis: 50%;
+            .info {
+              display: flex;
+              flex-direction: column;
+              list-style: none;
+              li {
+                padding: var(--grid-verical) 0;
+                display: block;
+                font-weight: bold;
+                label {
+                  font-weight: normal;
+                  display: inline-block;
+                  width: calc(var(--grid-horisontal) * 10);
+                  text-align: right;
+                  padding: 0 var(--grid-horisontal);
+                }
+                &:last-child{
+                  font-weight: normal;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      #filmList {
+        font-size: 18px;
+
+        table {
+          width: 100%;
+
+          th, td {
+            padding: calc(var(--grid-verical) / 2) calc(var(--grid-horisontal) / 2);
+          }
+
+          thead {
+            tr {
+              background: cadetblue;
+
+              th {
+                a {
+                  position: relative;
+                  color: whitesmoke;
+                  text-decoration: navajowhite;
+
+                  &:active, &:visited {
+                    color: whitesmoke;
+                  }
+
+                  &.order {
+                    &:after {
+                      content: '⇓';
+                      display: block;
+                      position: absolute;
+                      top: -0.2em;
+                      left: -1em;
+                      right: 0;
+                      width: 1em;
+                      height: 1em;
+                    }
+
+                    &.desc {
+                      &:after {
+                        content: '⇑';
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          tbody {
+            tr {
+              &:nth-child(odd) {
+                background: aliceblue;
+              }
+
+              td {
+                text-align: right;
+
+                &:nth-child(1) {
+                  text-align: center;
+                }
+
+                .film-cover {
+                  margin: 0 auto;
+                  display: block;
+                  width: calc(var(--grid-horisontal) * 10);
+                  position: relative;
+
+
+                  img {
+                    width: 100%;
+                  }
+
+                  h3 {
+                    position: absolute;
+
+                    text-align: center;
+                    width: calc(var(--grid-horisontal) * 9);
+                    bottom: var(--grid-verical);
+                    left: calc(var(--grid-horisontal) / 2);
+                    text-decoration: none;
+                    color: white;
+                    text-shadow: 0 0 1px black;
+                  }
+                }
+
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .hidden {
+      display: none;
     }
   }
 }

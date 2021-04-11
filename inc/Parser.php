@@ -3,7 +3,6 @@
 namespace Cli;
 
 use Db\ModelParser;
-use Cli\Browser;
 use Exception;
 
 class Parser
@@ -27,7 +26,7 @@ class Parser
                 if (!mkdir(IMAGE_DIRECTORY)) {
                     throw new Exception(sprintf('Parser error: Unable to create images directory %s', IMAGE_DIRECTORY));
                 }
-                file_put_contents(CACHE_DIRECTORY . '.htaccess', 'php_flag engine off' . PHP_EOL);
+                file_put_contents(CACHE_PARSER_DIRECTORY . '.htaccess', 'php_flag engine off' . PHP_EOL);
             }
         }
     }
@@ -35,12 +34,11 @@ class Parser
     public function parse()
     {
         foreach ($this->newLoad() as $filmTypeId => $row) {
-            $this->parseTop10(sprintf($row['url'], PARSER_ITEMS_PER_QUERY), $row['loadId'], $filmTypeId);
-            break;
+            $this->parseTopFilms(sprintf($row['url'], PARSER_ITEMS_PER_QUERY), $row['loadId'], $filmTypeId);
         }
     }
 
-    private function parseTop10(string $url, int $loadId, int $filmTypeId)
+    private function parseTopFilms(string $url, int $loadId, int $filmTypeId)
     {
         $page = $this->getPage($url, false);
         $fieldNo = 0;
@@ -94,5 +92,10 @@ class Parser
         if (preg_match('/<img src=\'(img\/\d+\/' . $item['word_art_id'] . '\/\d+.jpg)\' width=300 border=1 alt=/', $page, $matches)) {
             $item['cover'] = $this->fetchImage($matches[1]);
         }
+        _log('Parsing history info for film: '.$item['word_art_id']);
+//        $page = $this->getPage(sprintf(PARSER_FILM_HISTORY, $item['word_art_id']), false);
+//        if (preg_match('/<p align=justify class=\'review\'>(.*?)<\/p>/', $page, $matches)) {
+//            $item['description'] = $matches[1];
+//        }
     }
 }

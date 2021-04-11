@@ -1,11 +1,15 @@
+@charset "UTF-8";
 :root {
   --menu-link-color: black;
   --menu-link-hover-color: blue;
+  --grid-horisontal: 25px;
+  --grid-verical: 20px;
 }
 
 html body #root {
-  width: 100%;
+  width: 70%;
   margin: 0 auto;
+  font-family: Arial, serif;
 }
 html body #root #topMenu {
   display: flex;
@@ -13,8 +17,11 @@ html body #root #topMenu {
   justify-content: space-evenly;
   align-items: center;
 }
+html body #root #topMenu span {
+  text-align: center;
+}
 html body #root #topMenu span a {
-  padding: 5px;
+  padding: calc(var(--grid-verical) / 2) calc(var(--grid-horisontal) / 2);
   text-decoration: none;
   color: var(--menu-link-color);
   border-top: 5px solid transparent;
@@ -26,7 +33,126 @@ html body #root #topMenu span a:hover {
   color: var(--menu-link-hover-color);
 }
 html body #root #topMenu span a.active {
-  border-top: 5px solid limegreen;
+  color: limegreen;
+}
+html body #root #loadsSelect {
+  margin: var(--grid-verical) 0;
+}
+html body #root #filmPopupWindow {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(191, 191, 191, 0.33);
+}
+html body #root #filmPopupWindow .popup-inner {
+  background: white;
+  position: fixed;
+  width: 50%;
+  margin: calc(var(--grid-verical)) calc(25%);
+  padding: var(--grid-verical) var(--grid-horisontal);
+  box-shadow: 0 0 10px silver;
+}
+html body #root #filmPopupWindow .popup-inner h3 {
+  margin-right: calc(var(--grid-verical) * 4);
+}
+html body #root #filmPopupWindow .popup-inner .close-popup {
+  float: right;
+  font-size: calc(var(--grid-verical) * 3);
+  font-weight: bold;
+  cursor: pointer;
+}
+html body #root #filmPopupWindow .popup-inner .close-popup:hover {
+  text-shadow: 0 0 10px silver;
+}
+html body #root #filmPopupWindow .popup-inner .film-info-wrapper {
+  display: flex;
+  flex-basis: 50%;
+}
+html body #root #filmPopupWindow .popup-inner .film-info-wrapper .info {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+html body #root #filmPopupWindow .popup-inner .film-info-wrapper .info li {
+  padding: var(--grid-verical) 0;
+  display: block;
+  font-weight: bold;
+}
+html body #root #filmPopupWindow .popup-inner .film-info-wrapper .info li label {
+  font-weight: normal;
+  display: inline-block;
+  width: calc(var(--grid-horisontal) * 10);
+  text-align: right;
+  padding: 0 var(--grid-horisontal);
+}
+html body #root #filmPopupWindow .popup-inner .film-info-wrapper .info li:last-child {
+  font-weight: normal;
+}
+html body #root #filmList {
+  font-size: 18px;
+}
+html body #root #filmList table {
+  width: 100%;
+}
+html body #root #filmList table th, html body #root #filmList table td {
+  padding: calc(var(--grid-verical) / 2) calc(var(--grid-horisontal) / 2);
+}
+html body #root #filmList table thead tr {
+  background: cadetblue;
+}
+html body #root #filmList table thead tr th a {
+  position: relative;
+  color: whitesmoke;
+  text-decoration: navajowhite;
+}
+html body #root #filmList table thead tr th a:active, html body #root #filmList table thead tr th a:visited {
+  color: whitesmoke;
+}
+html body #root #filmList table thead tr th a.order:after {
+  content: "⇓";
+  display: block;
+  position: absolute;
+  top: -0.2em;
+  left: -1em;
+  right: 0;
+  width: 1em;
+  height: 1em;
+}
+html body #root #filmList table thead tr th a.order.desc:after {
+  content: "⇑";
+}
+html body #root #filmList table tbody tr:nth-child(odd) {
+  background: aliceblue;
+}
+html body #root #filmList table tbody tr td {
+  text-align: right;
+}
+html body #root #filmList table tbody tr td:nth-child(1) {
+  text-align: center;
+}
+html body #root #filmList table tbody tr td .film-cover {
+  margin: 0 auto;
+  display: block;
+  width: calc(var(--grid-horisontal) * 10);
+  position: relative;
+}
+html body #root #filmList table tbody tr td .film-cover img {
+  width: 100%;
+}
+html body #root #filmList table tbody tr td .film-cover h3 {
+  position: absolute;
+  text-align: center;
+  width: calc(var(--grid-horisontal) * 9);
+  bottom: var(--grid-verical);
+  left: calc(var(--grid-horisontal) / 2);
+  text-decoration: none;
+  color: white;
+  text-shadow: 0 0 1px black;
+}
+html body .hidden {
+  display: none;
 }
 
 /*# sourceMappingURL=word-art.css.map */

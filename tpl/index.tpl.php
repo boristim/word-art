@@ -6,11 +6,12 @@
 </head>
 <body>
 <div id="root">
-    <div id="loadsList"></div>
+    <div id="loadsSelect"></div>
     <div id="topMenu"></div>
     <div id="filmList"></div>
+    <div id="filmPopupWindow" class="hidden"></div>
 </div>
-<link rel="stylesheet" href="/assets/word-art.css?5">
-<script src="/assets/word-art.js?7"></script>
+<link rel="stylesheet" href="/assets/word-art.css?<?php print time()?>">
+<script src="/assets/word-art.js?<?php print time()?>"></script>
 </body>
 </html>

@@ -11,12 +11,12 @@ trait Browser
      */
     public function initBrowser(): void
     {
-        if (!is_dir(CACHE_DIRECTORY)) {
-            _log('Creating cache directory ' . CACHE_DIRECTORY);
-            if (!mkdir(CACHE_DIRECTORY)) {
-                throw new Exception(sprintf('Browser error: Unable to create cache directory %s', CACHE_DIRECTORY));
+        if (!is_dir(CACHE_PARSER_DIRECTORY)) {
+            _log('Creating cache directory ' . CACHE_PARSER_DIRECTORY);
+            if (!mkdir(CACHE_PARSER_DIRECTORY)) {
+                throw new Exception(sprintf('Browser error: Unable to create cache parser directory %s', CACHE_PARSER_DIRECTORY));
             }
-            file_put_contents(CACHE_DIRECTORY . '.htaccess', 'Deny from all' . PHP_EOL . 'php_flag engine off' . PHP_EOL);
+            file_put_contents(CACHE_PARSER_DIRECTORY . '.htaccess', 'Deny from all' . PHP_EOL . 'php_flag engine off' . PHP_EOL);
         }
     }
 
@@ -27,9 +27,8 @@ trait Browser
      */
     public function getPage(string $url, bool $is_binary): string
     {
-        $cacheFile = CACHE_DIRECTORY . str_replace([':', '/', '\\', '&', '?', '#'], '_', $url);
+        $cacheFile = CACHE_PARSER_DIRECTORY . str_replace([':', '/', '\\', '&', '?', '#'], '_', $url);
         $result = null;
-        $charset = 'utf-8';
         if (file_exists($cacheFile) && (filectime($cacheFile) > (time() - CACHE_PARSER_PERIOD))) {
             $result = file_get_contents($cacheFile);
             _log("Url $url is cached");
@@ -90,8 +89,8 @@ trait Browser
             CURLOPT_MAXREDIRS => 5,
             CURLOPT_FRESH_CONNECT => true,
             CURLOPT_SSL_VERIFYPEER => 0,
-            CURLOPT_COOKIEFILE => CACHE_DIRECTORY . 'cookie.txt',
-            CURLOPT_COOKIEJAR => CACHE_DIRECTORY . 'cookie.txt',
+            CURLOPT_COOKIEFILE => CACHE_PARSER_DIRECTORY . 'cookie.txt',
+            CURLOPT_COOKIEJAR => CACHE_PARSER_DIRECTORY . 'cookie.txt',
             CURLOPT_URL => $url,
             CURLOPT_HEADER => !$is_binary
         );

@@ -3,12 +3,22 @@
 
 namespace Db;
 
-
 use mysqli;
+use Memcache;
 use Exception;
 
+/**
+ * Class Database
+ * @package Db
+ */
 class Database extends mysqli
 {
+    private Memcache $memcache;
+
+    /**
+     * Database constructor.
+     * @throws Exception
+     */
     public function __construct()
     {
         @parent::__construct(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
@@ -16,16 +26,26 @@ class Database extends mysqli
             throw new Exception('Database error: Couldn`t connect to database');
         }
         $this->set_charset(DB_CHARSET);
+        $this->memcache = new Memcache();
+        $this->memcache->connect(MEMCACHE_HOST, MEMCACHE_PORT);
     }
 
-    public function getArray($sql): array
+    /**
+     * @param string $sql
+     * @param int $cache
+     * @return array
+     */
+    public function getArray(string $sql, $cache = MEMCACHE_PERIOD): array
     {
-        $query = $this->query($sql);
-        if ($query->num_rows) {
-            $ret = $query->fetch_all(MYSQLI_ASSOC);
-            _log($ret);
-            return $ret;
+        $key = md5($sql);
+        $result = $this->memcache->get($key);
+        if (!$result) {
+            $query = $this->query($sql);
+            if ($query->num_rows) {
+                $result = $query->fetch_all(MYSQLI_ASSOC);
+            }
         }
-        return [];
+        $this->memcache->set($key, $result, 0, $cache);
+        return $result ? $result : [];
     }
 }
