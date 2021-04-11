@@ -28,14 +28,13 @@ const menuRender = {
                         let target = event.target
                         event.preventDefault()
                         curState.filmTypeId = target.dataset.id
-                        setState()
                         self.rating.render().then(() => {
                             document.querySelectorAll('#topMenu a').forEach(link => {
                                 link.classList.remove('active')
                             })
                             target.classList.add('active')
-                            setState()
                         })
+                        setState()
                         return false
                     })
                     topMenu.appendChild(link)
@@ -99,13 +98,20 @@ const ratingRender = {
                 let th = document.createElement('th')
                 let a = document.createElement('a')
                 a.innerHTML = captions[field]
-                curState.orderField = a.dataset.id = (Math.abs(Number(curState.orderField)) === npp ? -(npp + 1) : (npp + 1)) + '';
-                a.href = `/${curState.loadId}/${curState.loadId}/${curState.orderField}`
+                a.dataset.id = (Math.abs(Number(curState.orderField)) === npp ? -(npp + 1) : (npp + 1)) + '';
+                console.log('ordering',Math.abs(a.dataset.id),Math.abs(curState.orderField))
+                if(Math.abs(a.dataset.id)  === Math.abs(curState.orderField)) {
+                    a.classList.add('order')
+                    if (curState.orderField < 0) {
+                        a.classList.add('desc')
+                    }
+                }
+
+                a.href = `/${curState.loadId}/${curState.loadId}/${a.dataset.id}`
                 a.addEventListener('click', (event) => {
                     event.preventDefault()
                     curState.orderField = event.target.dataset.id = (-Number(event.target.dataset.id)) + '';
                     event.target.href = `/${curState.loadId}/${curState.loadId}/${curState.orderField}`
-                    setState()
                     self.fetchData().then((data) => {
                         let {items, header} = data
                         self.table.children[1].outerHTML = ''
@@ -118,6 +124,7 @@ const ratingRender = {
                         if (curState.orderField < 0) {
                             event.target.classList.add('desc')
                         }
+                        setState()
                     })
                     return false;
                 })
@@ -165,8 +172,8 @@ const loadsSelect = {
                 let select = document.createElement('select')
                 data.forEach((item) => {
                     select.appendChild(self.template(item))
-                    if(select.options.length === 1){
-                        select.value = item.id
+                    if (select.options.length === 1) {
+                        curState.loadId = select.value = item.id
                     }
                 })
                 select.addEventListener('change', (event) => {
@@ -177,7 +184,6 @@ const loadsSelect = {
                     })
                 })
                 loadsPlace.appendChild(select)
-                select.value = curState.loadId
             })
     }
 }
@@ -246,7 +252,7 @@ let loads = Object.create(loadsSelect)
 let filmPopup = Object.create(popup)
 
 
-let curState = {loadId: 0, filmTypeId: 1, orderField: 0}
+let curState = {loadId: 0, filmTypeId: 1, orderField: 1}
 if (window.location.pathname.length > 1) {
     let params = window.location.pathname.split('/')
     if (params[1] !== undefined) {
@@ -258,7 +264,6 @@ if (window.location.pathname.length > 1) {
     if (params[3] !== undefined) {
         curState.orderField = params[3]
     }
-    setState()
 }
 
 loads.render(menu, rating).then(() => {
