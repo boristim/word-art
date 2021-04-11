@@ -7,6 +7,10 @@ define('DB_PASS', 'word-art');
 define('DB_HOST', 'localhost');
 define('DB_CHARSET', 'utf8');
 define('DB_PORT', 3306);
+// Memcache config
+define('MEMCACHE_HOST', 'localhost');
+define('MEMCACHE_PORT', 11211);
+define('MEMCACHE_PERIOD', 5);
 
 // Base url for parsed site
 define('PARSER_BASE_URL', 'http://www.world-art.ru/cinema/');
@@ -14,6 +18,8 @@ define('PARSER_BASE_URL', 'http://www.world-art.ru/cinema/');
 define('PARSER_ITEMS_PER_QUERY', 10);
 // Url for full film information
 define('PARSER_FILM_URL', 'cinema.php?id=%d');
+// Url for history position
+define('PARSER_FILM_HISTORY', 'votes_history.php?id=%d');
 
 // CLI key for calling parser via cron
 define('CRON_KEY', '111');
