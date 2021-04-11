@@ -99,31 +99,16 @@ const ratingRender = {
                 let a = document.createElement('a')
                 a.innerHTML = captions[field]
                 a.dataset.id = (Math.abs(Number(curState.orderField)) === npp ? -(npp + 1) : (npp + 1)) + '';
-                console.log('ordering',Math.abs(a.dataset.id),Math.abs(curState.orderField))
-                if(Math.abs(a.dataset.id)  === Math.abs(curState.orderField)) {
-                    a.classList.add('order')
-                    if (curState.orderField < 0) {
-                        a.classList.add('desc')
-                    }
-                }
-
                 a.href = `/${curState.loadId}/${curState.loadId}/${a.dataset.id}`
                 a.addEventListener('click', (event) => {
                     event.preventDefault()
                     curState.orderField = event.target.dataset.id = (-Number(event.target.dataset.id)) + '';
                     event.target.href = `/${curState.loadId}/${curState.loadId}/${curState.orderField}`
+                    setState()
                     self.fetchData().then((data) => {
                         let {items, header} = data
                         self.table.children[1].outerHTML = ''
                         self.table.appendChild(self.templateRatings(items, header))
-                        document.querySelectorAll('#filmList th a').forEach((item) => {
-                            item.classList.remove('order')
-                            item.classList.remove('desc')
-                        })
-                        event.target.classList.add('order')
-                        if (curState.orderField < 0) {
-                            event.target.classList.add('desc')
-                        }
                         setState()
                     })
                     return false;
@@ -150,6 +135,7 @@ const ratingRender = {
         this.fetchData().then((data) => {
             filmsList.innerHTML = ''
             filmsList.appendChild(self.templateRatingsTable(data))
+            setState()
         })
     }
 }
@@ -172,7 +158,7 @@ const loadsSelect = {
                 let select = document.createElement('select')
                 data.forEach((item) => {
                     select.appendChild(self.template(item))
-                    if (select.options.length === 1) {
+                    if ((select.options.length === 1) && (curState.loadId <= 0)) {
                         curState.loadId = select.value = item.id
                     }
                 })
@@ -184,6 +170,7 @@ const loadsSelect = {
                     })
                 })
                 loadsPlace.appendChild(select)
+                setState()
             })
     }
 }
@@ -233,14 +220,26 @@ const setState = () => {
         document.title = selMenu.innerText;
     }
     let sel = document.querySelector('#loadsSelect select')
+    console.log(sel)
     if (sel != null) {
         for (let i in sel.options) {
-            let option = sel.options[1]
+            let option = sel.options[i]
             if (option.value === curState.loadId) {
                 suffix = ' - ' + option.innerText;
+                option.setAttribute('selected',true)
             }
         }
     }
+    document.querySelectorAll('#filmList th a').forEach((item) => {
+        item.classList.remove('order')
+        item.classList.remove('desc')
+        if(Math.abs(item.dataset.id) === Math.abs(curState.orderField)) {
+            item.classList.add('order')
+            if (curState.orderField < 0) {
+                item.classList.add('desc')
+            }
+        }
+    })
     document.title += suffix
     history.pushState(curState, document.title, `/${curState.loadId}/${curState.filmTypeId}/${curState.orderField}`)
 }
