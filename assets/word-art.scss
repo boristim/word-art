@@ -20,9 +20,9 @@ html {
 
         span {
           text-align: center;
+          padding: calc(var(--grid-verical) / 2) calc(var(--grid-horisontal) / 2);
 
           a {
-            padding: calc(var(--grid-verical) / 2) calc(var(--grid-horisontal) / 2);
             text-decoration: none;
             color: var(--menu-link-color);
             border-top: 5px solid transparent;
@@ -57,8 +57,8 @@ html {
         .popup-inner {
           background: white;
           position: fixed;
-          width: 50%;
-          margin: calc(var(--grid-verical)) calc(25%);
+          width: calc(100% - (var(--grid-horisontal) * 10));
+          margin: calc(var(--grid-verical)) calc(var(--grid-horisontal) * 5);
           padding: var(--grid-verical) var(--grid-horisontal);
           box-shadow: 0 0 10px silver;
 
@@ -80,14 +80,17 @@ html {
           .film-info-wrapper {
             display: flex;
             flex-basis: 50%;
+
             .info {
               display: flex;
               flex-direction: column;
               list-style: none;
+
               li {
                 padding: var(--grid-verical) 0;
                 display: block;
                 font-weight: bold;
+
                 label {
                   font-weight: normal;
                   display: inline-block;
@@ -95,7 +98,8 @@ html {
                   text-align: right;
                   padding: 0 var(--grid-horisontal);
                 }
-                &:last-child{
+
+                &:last-child {
                   font-weight: normal;
                 }
               }

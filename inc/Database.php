@@ -32,20 +32,22 @@ class Database extends mysqli
 
     /**
      * @param string $sql
-     * @param int $cache
+     * @param int $cachePeriod
      * @return array
      */
-    public function getArray(string $sql, $cache = MEMCACHE_PERIOD): array
+    public function getArray(string $sql, $cachePeriod = MEMCACHE_PERIOD): array
     {
         $key = md5($sql);
         $result = $this->memcache->get($key);
         if (!$result) {
+            _log(__FUNCTION__.' cache miss');
             $query = $this->query($sql);
             if ($query->num_rows) {
                 $result = $query->fetch_all(MYSQLI_ASSOC);
+                $this->memcache->set($key, $result, 0, $cachePeriod);
             }
         }
-        $this->memcache->set($key, $result, 0, $cache);
-        return $result ? $result : [];
+
+        return $result;
     }
 }

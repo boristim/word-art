@@ -19,9 +19,9 @@ html body #root #topMenu {
 }
 html body #root #topMenu span {
   text-align: center;
+  padding: calc(var(--grid-verical) / 2) calc(var(--grid-horisontal) / 2);
 }
 html body #root #topMenu span a {
-  padding: calc(var(--grid-verical) / 2) calc(var(--grid-horisontal) / 2);
   text-decoration: none;
   color: var(--menu-link-color);
   border-top: 5px solid transparent;
@@ -49,8 +49,8 @@ html body #root #filmPopupWindow {
 html body #root #filmPopupWindow .popup-inner {
   background: white;
   position: fixed;
-  width: 50%;
-  margin: calc(var(--grid-verical)) calc(25%);
+  width: calc(100% - (var(--grid-horisontal) * 10));
+  margin: calc(var(--grid-verical)) calc(var(--grid-horisontal) * 5);
   padding: var(--grid-verical) var(--grid-horisontal);
   box-shadow: 0 0 10px silver;
 }
