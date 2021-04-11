@@ -1,7 +1,9 @@
 const topMenu = document.querySelector('#topMenu')
 const filmsList = document.querySelector('#filmList')
 const loadsPlace = document.querySelector('#loadsSelect')
+
 const filmPopupWindow = document.querySelector('#filmPopupWindow')
+
 
 const menuRender = {
     rating: Object,
@@ -28,6 +30,7 @@ const menuRender = {
                         let target = event.target
                         event.preventDefault()
                         curState.filmTypeId = target.dataset.id
+                        setState()
                         self.rating.render().then(() => {
                             document.querySelectorAll('#topMenu a').forEach(link => {
                                 link.classList.remove('active')
@@ -39,6 +42,7 @@ const menuRender = {
                     })
                     topMenu.appendChild(link)
                 })
+
             })
     }
 }
@@ -122,11 +126,13 @@ const ratingRender = {
         return header
     },
     fetchData: async () => {
+
         return await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({action: 'ratingList', url: document.location.pathname})
         }).then(response => {
+
             return response.json()
         })
     },
@@ -148,6 +154,7 @@ const loadsSelect = {
     },
     render: async function (menu, rating) {
         let self = this
+
         await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -171,6 +178,7 @@ const loadsSelect = {
                 })
                 loadsPlace.appendChild(select)
                 setState()
+
             })
     }
 }
@@ -195,6 +203,7 @@ const popup = {
     },
     render: function (filmId) {
         let self = this
+
         fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -210,9 +219,12 @@ const popup = {
                 document.querySelector('.close-popup').addEventListener('click', () => {
                     filmPopupWindow.classList.add('hidden')
                 })
+
             })
     }
 }
+
+
 const setState = () => {
     let suffix = ''
     let selMenu = document.querySelector('#topMenu a.active')
@@ -220,20 +232,19 @@ const setState = () => {
         document.title = selMenu.innerText;
     }
     let sel = document.querySelector('#loadsSelect select')
-    console.log(sel)
     if (sel != null) {
         for (let i in sel.options) {
             let option = sel.options[i]
             if (option.value === curState.loadId) {
                 suffix = ' - ' + option.innerText;
-                option.setAttribute('selected',true)
+                option.setAttribute('selected', true)
             }
         }
     }
     document.querySelectorAll('#filmList th a').forEach((item) => {
         item.classList.remove('order')
         item.classList.remove('desc')
-        if(Math.abs(item.dataset.id) === Math.abs(curState.orderField)) {
+        if (Math.abs(item.dataset.id) === Math.abs(curState.orderField)) {
             item.classList.add('order')
             if (curState.orderField < 0) {
                 item.classList.add('desc')

@@ -10,6 +10,7 @@
     <div id="topMenu"></div>
     <div id="filmList"></div>
     <div id="filmPopupWindow" class="hidden"></div>
+    <div id="throbber" class="hidden"></div>
 </div>
 <link rel="stylesheet" href="/assets/word-art.css?<?php print time()?>">
 <script src="/assets/word-art.js?<?php print time()?>"></script>

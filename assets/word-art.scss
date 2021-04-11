@@ -46,6 +46,15 @@ html {
         margin: var(--grid-verical) 0;
       }
 
+      #throbber {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: url(throbber.gif) no-repeat center center rgba(191, 191, 191, 0.33);
+      }
+
       #filmPopupWindow {
         position: fixed;
         width: 100%;
