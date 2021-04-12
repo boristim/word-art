@@ -230,13 +230,11 @@ const Throbber = {
     start: function () {
         this.starts++
         this.show()
-        console.log('tStart',this.starts)
     },
     show: function () {
         let self = this
         setTimeout(function () {
             if (self.starts > 0) {
-                console.log('tShow',self.starts)
                 throbberPlace.classList.remove('hidden')
             }
         }, 1000)
@@ -245,7 +243,6 @@ const Throbber = {
     stop: function () {
         this.starts--;
         throbberPlace.classList.add('hidden')
-        console.log('tStop',this.starts)
     }
 }
 
@@ -258,10 +255,12 @@ const setState = () => {
     let sel = document.querySelector('#loadsSelect select')
     if (sel != null) {
         for (let i in sel.options) {
-            let option = sel.options[i]
-            if (option.value === curState.loadId) {
-                suffix = ' - ' + option.innerText;
-                option.setAttribute('selected', true)
+            if(sel.options.hasOwnProperty(i)) {
+                let option = sel.options[i]
+                if (option.value === curState.loadId) {
+                    suffix = ' - ' + option.innerText;
+                    option.setAttribute('selected', true)
+                }
             }
         }
     }

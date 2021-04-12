@@ -43,7 +43,6 @@ class Database extends mysqli
         $key = md5($sql);
         $result = $this->memcache->get($key);
         if (!$result) {
-            _log(__FUNCTION__.' cache miss');
             $query = $this->query($sql);
             if ($query->num_rows) {
                 $result = $query->fetch_all(MYSQLI_ASSOC);

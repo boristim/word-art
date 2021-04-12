@@ -84,7 +84,7 @@ trait ModelParser
         extract($values);
         $insertStmt->execute();
         if ($this->db->errno) {
-            throw new Exception('Model error: ' . $this->db->error);
+            throw new Exception(__CLASS__ . ' error: ' . $this->db->error);
         }
         return $this->db->insert_id;
     }
