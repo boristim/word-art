@@ -11,7 +11,7 @@ function _log($msg, bool $showMessages = false)
     if ($showMessages) {
         $messages = $showMessages;
     }
-    if($messages) {
+    if ($messages) {
         print $msg;
     }
     file_put_contents(realpath(__DIR__ . '/../') . '/log.log', $msg, $firstMessage ? 0 : FILE_APPEND);

@@ -78,7 +78,7 @@ SQL;
     /**
      * @return array
      */
-    public  function getLoadsList(): array
+    public function getLoadsList(): array
     {
         return $this->db->getArray('Select l.id, date_format(l.dt,\'%d.%m.%Y %H:%i\') as dt from loads as l order by l.dt desc');
     }

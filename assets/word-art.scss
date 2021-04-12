@@ -3,12 +3,13 @@
   --menu-link-hover-color: blue;
   --grid-horisontal: 25px;
   --grid-verical: 20px;
+  --root-width: 70%;
 }
 
 html {
   body {
     #root {
-      width: 70%;
+      width: var(--root-width);
       margin: 0 auto;
       font-family: Arial, serif;
 
@@ -183,21 +184,19 @@ html {
                   width: calc(var(--grid-horisontal) * 10);
                   position: relative;
 
-
                   img {
                     width: 100%;
                   }
 
                   h3 {
                     position: absolute;
-
                     text-align: center;
                     width: calc(var(--grid-horisontal) * 9);
                     bottom: var(--grid-verical);
                     left: calc(var(--grid-horisontal) / 2);
                     text-decoration: none;
-                    color: white;
-                    text-shadow: 0 0 1px black;
+                    color: lime;
+                    text-shadow: 0 0 2px blue;
                   }
                 }
 
