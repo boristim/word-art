@@ -267,7 +267,7 @@ const setState = () => {
     document.querySelectorAll('#filmList th a').forEach((item) => {
         item.classList.remove('order')
         item.classList.remove('desc')
-        if (Math.abs(item.dataset.id) === Math.abs(curState.orderField)) {
+        if (Math.abs(Number(item.dataset.id)) === Math.abs(curState.orderField)) {
             item.classList.add('order')
             if (curState.orderField < 0) {
                 item.classList.add('desc')
