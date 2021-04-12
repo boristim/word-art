@@ -4,7 +4,7 @@ Web usage: https://word-art.boris-tim.site
 
 Parsing usage: `php index.php -k=CRON_KEY` use CRON_KEY constant from `config.php`
 
-Use PHP7.4+, ECMA7+, CSS3+    
+Requires PHP7.4+, ECMA7+, CSS3+    
 Depends mysqli, curl, zlib, memcache
 
 ==============================================
