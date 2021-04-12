@@ -41,8 +41,7 @@ class Database extends mysqli
     public function getArray(string $sql, $cachePeriod = MEMCACHE_PERIOD): array
     {
         $key = md5($sql);
-        $result = $this->memcache->get($key);
-        if (!$result) {
+        if (!$result = $this->memcache->get($key)) {
             $query = $this->query($sql);
             if ($query->num_rows) {
                 $result = $query->fetch_all(MYSQLI_ASSOC);
