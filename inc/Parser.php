@@ -34,7 +34,7 @@ class Parser
                 if (!mkdir(IMAGE_DIRECTORY)) {
                     throw new Exception(sprintf('Parser error: Unable to create images directory %s', IMAGE_DIRECTORY));
                 }
-                file_put_contents(CACHE_PARSER_DIRECTORY . '.htaccess', 'php_flag engine off' . PHP_EOL);
+                file_put_contents(CACHE_PARSER_DIRECTORY . '.htaccess', 'Order Allow, Deny\nphp_flag engine off' . PHP_EOL);
             }
         }
     }
