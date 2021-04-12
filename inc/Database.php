@@ -25,8 +25,8 @@ class Database extends mysqli
     public function __construct()
     {
         @parent::__construct(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
-        if ($this->connect_error) {
-            throw new Exception("Database error: Couldn't connect to database");
+        if ($this->connect_errno) {
+            throw new Exception("Database error: " . $this->connect_error);
         }
         $this->set_charset(DB_CHARSET);
         $this->memcache = new Memcache();
