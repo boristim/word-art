@@ -4,7 +4,6 @@ const loadsPlace = document.querySelector('#loadsSelect')
 const throbberPlace = document.querySelector('#throbber')
 const filmPopupWindow = document.querySelector('#filmPopupWindow')
 
-
 const menuRender = {
     rating: Object,
     template: function (data) {
