@@ -1,4 +1,4 @@
-Config see in `config-sample.inc`
+Config see in `config-sample.inc`, edit and save as `config.inc`
 
 Web usage: https://word-art.boris-tim.site
 
