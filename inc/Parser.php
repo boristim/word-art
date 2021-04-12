@@ -92,10 +92,7 @@ class Parser
         if (preg_match('/<img src=\'(img\/\d+\/' . $item['word_art_id'] . '\/\d+.jpg)\' width=300 border=1 alt=/', $page, $matches)) {
             $item['cover'] = $this->fetchImage($matches[1]);
         }
-        _log('Parsing history info for film: '.$item['word_art_id']);
+//        _log('Parsing history info for film: '.$item['word_art_id']);
 //        $page = $this->getPage(sprintf(PARSER_FILM_HISTORY, $item['word_art_id']), false);
-//        if (preg_match('/<p align=justify class=\'review\'>(.*?)<\/p>/', $page, $matches)) {
-//            $item['description'] = $matches[1];
-//        }
     }
 }

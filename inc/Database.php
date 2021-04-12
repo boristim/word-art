@@ -23,7 +23,7 @@ class Database extends mysqli
     {
         @parent::__construct(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
         if ($this->connect_error) {
-            throw new Exception('Database error: Couldn`t connect to database');
+            throw new Exception("Database error: Couldn't connect to database");
         }
         $this->set_charset(DB_CHARSET);
         $this->memcache = new Memcache();
