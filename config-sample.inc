@@ -7,10 +7,11 @@ define('DB_PASS', 'word-art');
 define('DB_HOST', 'localhost');
 define('DB_CHARSET', 'utf8');
 define('DB_PORT', 3306);
+
 // Memcache config
 define('MEMCACHE_HOST', 'localhost');
 define('MEMCACHE_PORT', 11211);
-define('MEMCACHE_PERIOD', 5);
+define('MEMCACHE_PERIOD', 60);
 
 // Base url for parsed site
 define('PARSER_BASE_URL', 'http://www.world-art.ru/cinema/');

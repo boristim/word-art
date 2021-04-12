@@ -1,7 +1,7 @@
 const topMenu = document.querySelector('#topMenu')
 const filmsList = document.querySelector('#filmList')
 const loadsPlace = document.querySelector('#loadsSelect')
-
+const throbberPlace = document.querySelector('#throbber')
 const filmPopupWindow = document.querySelector('#filmPopupWindow')
 
 
@@ -16,6 +16,7 @@ const menuRender = {
     render: async function (rating) {
         this.rating = rating
         let self = this
+        throbber.start()
         await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -42,7 +43,7 @@ const menuRender = {
                     })
                     topMenu.appendChild(link)
                 })
-
+                throbber.stop()
             })
     }
 }
@@ -126,13 +127,13 @@ const ratingRender = {
         return header
     },
     fetchData: async () => {
-
+        throbber.start()
         return await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({action: 'ratingList', url: document.location.pathname})
         }).then(response => {
-
+            throbber.stop()
             return response.json()
         })
     },
@@ -154,7 +155,7 @@ const loadsSelect = {
     },
     render: async function (menu, rating) {
         let self = this
-
+        throbber.start()
         await fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -178,7 +179,7 @@ const loadsSelect = {
                 })
                 loadsPlace.appendChild(select)
                 setState()
-
+                throbber.stop()
             })
     }
 }
@@ -203,7 +204,7 @@ const popup = {
     },
     render: function (filmId) {
         let self = this
-
+        throbber.start()
         fetch('/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -219,11 +220,34 @@ const popup = {
                 document.querySelector('.close-popup').addEventListener('click', () => {
                     filmPopupWindow.classList.add('hidden')
                 })
-
+                throbber.stop()
             })
     }
 }
 
+const Throbber = {
+    starts: 0,
+    start: function () {
+        this.starts++
+        this.show()
+        console.log('tStart',this.starts)
+    },
+    show: function () {
+        let self = this
+        setTimeout(function () {
+            if (self.starts > 0) {
+                console.log('tShow',self.starts)
+                throbberPlace.classList.remove('hidden')
+            }
+        }, 1000)
+
+    },
+    stop: function () {
+        this.starts--;
+        throbberPlace.classList.add('hidden')
+        console.log('tStop',this.starts)
+    }
+}
 
 const setState = () => {
     let suffix = ''
@@ -260,7 +284,7 @@ let rating = Object.create(ratingRender)
 let menu = Object.create(menuRender)
 let loads = Object.create(loadsSelect)
 let filmPopup = Object.create(popup)
-
+let throbber = Object.create(Throbber)
 
 let curState = {loadId: 0, filmTypeId: 1, orderField: 1}
 if (window.location.pathname.length > 1) {
