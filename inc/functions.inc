@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @param $msg
+ * @param bool $showMessages
+ */
 function _log($msg, bool $showMessages = false)
 {
     static $firstMessage = true, $messages;

@@ -6,6 +6,10 @@ namespace Db;
 use Exception;
 use Generator;
 
+/**
+ * Trait ModelParser
+ * @package Db
+ */
 trait ModelParser
 {
     /**
@@ -35,6 +39,10 @@ trait ModelParser
         }
     }
 
+    /**
+     * @param $values
+     * @return int|mixed
+     */
     public function getFilmId($values)
     {
         $result = 0;
@@ -45,6 +53,10 @@ trait ModelParser
         return $result;
     }
 
+    /**
+     * @param array $values
+     * @return int|string
+     */
     public function saveFilm(array $values)
     {
         static $name, $year, $description, $cover, $word_art_id, $insertStmt;
@@ -57,6 +69,11 @@ trait ModelParser
         return $this->db->insert_id;
     }
 
+    /**
+     * @param array $values
+     * @return int|string
+     * @throws Exception
+     */
     public function saveRate(array $values)
     {
         static $load_id, $film_id, $film_type_id, $position, $calc_ball, $votes, $avg_ball, $insertStmt;

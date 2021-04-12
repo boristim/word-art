@@ -5,6 +5,10 @@ namespace Cli;
 use Db\ModelParser;
 use Exception;
 
+/**
+ * Class Parser
+ * @package Cli
+ */
 class Parser
 {
     use ModelParser;
@@ -12,6 +16,10 @@ class Parser
 
     const TOP_10_FIELDS = ['position', 'name', 'calc_ball', 'votes', 'avg_ball'];
 
+    /**
+     * Parser constructor.
+     * @throws Exception
+     */
     function __construct()
     {
         try {
@@ -38,6 +46,12 @@ class Parser
         }
     }
 
+    /**
+     * @param string $url
+     * @param int $loadId
+     * @param int $filmTypeId
+     * @throws Exception
+     */
     private function parseTopFilms(string $url, int $loadId, int $filmTypeId)
     {
         $page = $this->getPage($url, false);
@@ -74,6 +88,10 @@ class Parser
         }
     }
 
+    /**
+     * @param $url
+     * @return string|string[]
+     */
     private function fetchImage($url)
     {
         $cacheFile = $this->getPage($url, true);
@@ -82,6 +100,9 @@ class Parser
         return $imgFile;
     }
 
+    /**
+     * @param array $item
+     */
     private function parseFilm(array &$item)
     {
         _log('Parsing film: ' . $item['word_art_id']);

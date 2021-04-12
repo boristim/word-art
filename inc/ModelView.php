@@ -3,6 +3,10 @@
 
 namespace Db;
 
+/**
+ * Trait ModelView
+ * @package Db
+ */
 trait ModelView
 {
     /**
@@ -23,6 +27,12 @@ trait ModelView
         return $this->db->getArray('Select id,name from film_types');
     }
 
+    /**
+     * @param int $filmTypeId
+     * @param int $loadId
+     * @param string $orderBy
+     * @return array
+     */
     private function getRatingList(int $filmTypeId, int $loadId, string $orderBy): array
     {
         $filmTypeId = intval($filmTypeId);
@@ -39,6 +49,9 @@ SQL;
         return $this->db->getArray($sql);
     }
 
+    /**
+     * @return int
+     */
     private function getLastLoadId(): int
     {
         $query = $this->db->query('Select max(id) as id from loads');
@@ -49,6 +62,9 @@ SQL;
         return $result;
     }
 
+    /**
+     * @return int
+     */
     private function getFirstFilmTypeId(): int
     {
         $query = $this->db->query('Select min(id) as id from film_types');
@@ -59,11 +75,18 @@ SQL;
         return $result;
     }
 
+    /**
+     * @return array
+     */
     private function getLoadsList(): array
     {
         return $this->db->getArray('Select l.id, date_format(l.dt,\'%d.%m.%Y %H:%i\') as dt from loads as l order by l.dt desc');
     }
 
+    /**
+     * @param $filmId
+     * @return array
+     */
     private function getFilmInfo($filmId): array
     {
         $filmId = intval($filmId);

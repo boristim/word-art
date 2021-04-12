@@ -5,6 +5,10 @@ namespace Web;
 
 use Db\ModelView;
 
+/**
+ * Class View
+ * @package Web
+ */
 class View
 {
     use ModelView;
@@ -12,6 +16,9 @@ class View
     const AJAX_ACTIONS = ['menuList', 'ratingList', 'loadsSelect', 'filmInfo'];
     const RATING_COLUMNS = ['position' => '##', 'name' => 'Название', 'year' => 'Год', 'calc_ball' => 'Расчетный балл', 'votes' => 'Голосов', 'avg_ball' => 'Средний балл'];
 
+    /**
+     * View constructor.
+     */
     function __construct()
     {
         $this->initDatabase();
@@ -48,11 +55,18 @@ class View
         }
     }
 
+    /**
+     * @return array
+     */
     private function menuList(): array
     {
         return $this->getMenuItems();
     }
 
+    /**
+     * @param array $params
+     * @return array
+     */
     private function ratingList(array $params): array
     {
         $filmTypeId = isset($params[1]) ? $params[1] : $this->getFirstFilmTypeId();
@@ -74,11 +88,18 @@ class View
         return ['items' => $this->getRatingList($filmTypeId, $loadId, $orderBy), 'header' => self::RATING_COLUMNS];
     }
 
+    /**
+     * @return array
+     */
     private function loadsSelect(): array
     {
         return $this->getLoadsList();
     }
 
+    /**
+     * @param array $filmId
+     * @return array
+     */
     private function filmInfo(array $filmId)
     {
         return $this->getFilmInfo(reset($filmId));

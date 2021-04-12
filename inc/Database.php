@@ -13,6 +13,9 @@ use Exception;
  */
 class Database extends mysqli
 {
+    /**
+     * @var Memcache
+     */
     private Memcache $memcache;
 
     /**

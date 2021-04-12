@@ -4,6 +4,10 @@ namespace Cli;
 
 use Exception;
 
+/**
+ * Trait Browser
+ * @package Cli
+ */
 trait Browser
 {
     /**
