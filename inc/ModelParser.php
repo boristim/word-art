@@ -15,7 +15,7 @@ trait ModelParser
     /**
      * @var Database
      */
-    private Database $db;
+    protected Database $db;
 
     public function initDatabase()
     {

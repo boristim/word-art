@@ -22,7 +22,7 @@ trait ModelView
     /**
      * @return array
      */
-    private function getMenuItems(): array
+    public function getMenuItems(): array
     {
         return $this->db->getArray('Select id,name from film_types');
     }
@@ -33,7 +33,7 @@ trait ModelView
      * @param string $orderBy
      * @return array
      */
-    private function getRatingList(int $filmTypeId, int $loadId, string $orderBy): array
+    public function getRatingList(int $filmTypeId, int $loadId, string $orderBy): array
     {
         $filmTypeId = intval($filmTypeId);
         $loadId = intval($loadId);
@@ -52,7 +52,7 @@ SQL;
     /**
      * @return int
      */
-    private function getLastLoadId(): int
+    public function getLastLoadId(): int
     {
         $query = $this->db->query('Select max(id) as id from loads');
         $result = 0;
@@ -65,7 +65,7 @@ SQL;
     /**
      * @return int
      */
-    private function getFirstFilmTypeId(): int
+    public function getFirstFilmTypeId(): int
     {
         $query = $this->db->query('Select min(id) as id from film_types');
         $result = 1;
@@ -78,7 +78,7 @@ SQL;
     /**
      * @return array
      */
-    private function getLoadsList(): array
+    public  function getLoadsList(): array
     {
         return $this->db->getArray('Select l.id, date_format(l.dt,\'%d.%m.%Y %H:%i\') as dt from loads as l order by l.dt desc');
     }
@@ -87,7 +87,7 @@ SQL;
      * @param $filmId
      * @return array
      */
-    private function getFilmInfo($filmId): array
+    public function getFilmInfo($filmId): array
     {
         $filmId = intval($filmId);
         $sql = <<<SQL
