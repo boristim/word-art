@@ -1,3 +1,5 @@
+Pure PHP 7.4, pure ES7, pure CSS3+
+
 Config see in `config-sample.inc`, edit and save as `config.inc`
 
 Web usage: https://word-art.boris-tim.site
