@@ -67,7 +67,7 @@ const ratingRender = {
                         a.dataset.id = item.id
                         a.href = `/-${item.id}`
                         let img = document.createElement('img')
-                        img.src = item.cover
+                        img.src = item['cover']
                         img.alt = item.name
                         a.appendChild(img)
                         let h3 = document.createElement('h3')
@@ -148,7 +148,7 @@ const ratingRender = {
 const loadsSelect = {
     template: (item) => {
         let option = document.createElement('option')
-        option.innerHTML = item.dt
+        option.innerHTML = item['dt']
         option.value = item.id
         return option
     },
@@ -190,12 +190,12 @@ const popup = {
 <span class="close-popup">X</span>
 <h2>${data.name}</h2>
 <div class="film-info-wrapper">
-<div class="img"><img src="${data.cover}" alt="${data.name}"></div>
+<div class="img"><img src="${data['cover']}" alt="${data.name}"></div>
 <ul class="info">
 <li><label>Год выхода на экран:</label> ${data.year}</li>
-<li><label>Расчетный ретинг:</label> ${data.calc_ball}</li>
-<li><label>Всего проголосовало:</label> ${data.votes}</li>
-<li><label>Средний балл:</label> ${data.avg_ball}</li>
+<li><label>Расчетный ретинг:</label> ${data['calc_ball']}</li>
+<li><label>Всего проголосовало:</label> ${data['votes']}</li>
+<li><label>Средний балл:</label> ${data['avg_ball']}</li>
 <li>${data.description}</li>
 </ul>
 </div>`
