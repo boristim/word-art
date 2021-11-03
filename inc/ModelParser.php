@@ -8,10 +8,12 @@ use Generator;
 
 /**
  * Trait ModelParser
+ *
  * @package Db
  */
 trait ModelParser
 {
+
     /**
      * @var Database
      */
@@ -41,20 +43,23 @@ trait ModelParser
 
     /**
      * @param $values
+     *
      * @return int|mixed
      */
     public function getFilmId($values)
     {
         $result = 0;
-        $query = $this->db->query('Select id from films where word_art_id = ' . intval($values['word_art_id']));
+        $query = $this->db->query('Select id from films where word_art_id = '.intval($values['word_art_id']));
         if ($query->num_rows) {
             $result = $query->fetch_assoc()['id'];
         }
+
         return $result;
     }
 
     /**
      * @param array $values
+     *
      * @return int|string
      */
     public function saveFilm(array $values)
@@ -66,11 +71,13 @@ trait ModelParser
         }
         extract($values);
         $insertStmt->execute();
+
         return $this->db->insert_id;
     }
 
     /**
      * @param array $values
+     *
      * @return int|string
      * @throws Exception
      */
@@ -84,8 +91,10 @@ trait ModelParser
         extract($values);
         $insertStmt->execute();
         if ($this->db->errno) {
-            throw new Exception(__CLASS__ . ' error: ' . $this->db->error);
+            throw new Exception(__CLASS__.' error: '.$this->db->error, $this->db->errno);
         }
+
         return $this->db->insert_id;
     }
+
 }

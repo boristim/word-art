@@ -5,6 +5,7 @@
     <title>Word Art Cinema ratings database browser</title>
 </head>
 <body>
+<blockquote>Sources see in: <a href="https://github.com/boristim/word-art">https://github.com/boristim/word-art</a></blockquote>
 <div id="root">
     <div id="loadsSelect"></div>
     <div id="topMenu"></div>

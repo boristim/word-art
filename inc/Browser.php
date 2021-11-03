@@ -32,7 +32,6 @@ trait Browser
     public function getPage(string $url, bool $is_binary): string
     {
         $cacheFile = CACHE_PARSER_DIRECTORY . str_replace([':', '/', '\\', '&', '?', '#'], '_', $url);
-        $result = null;
         if (file_exists($cacheFile) && (filectime($cacheFile) > (time() - CACHE_PARSER_PERIOD))) {
             $result = file_get_contents($cacheFile);
             _log("Url $url is cached");

@@ -69,8 +69,8 @@ class View
      */
     private function ratingList(array $params): array
     {
-        $filmTypeId = isset($params[1]) ? $params[1] : $this->getFirstFilmTypeId();
-        $loadId = isset($params[0]) ? $params[0] : $this->getLastLoadId();
+        $filmTypeId = $params[1] ?? $this->getFirstFilmTypeId();
+        $loadId = $params[0] ?? $this->getLastLoadId();
         if ($loadId <= 0) {
             $loadId = $this->getLastLoadId();
         }
@@ -100,7 +100,7 @@ class View
      * @param array $filmId
      * @return array
      */
-    private function filmInfo(array $filmId)
+    private function filmInfo(array $filmId): array
     {
         return $this->getFilmInfo(reset($filmId));
     }

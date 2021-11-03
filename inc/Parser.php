@@ -7,10 +7,12 @@ use Exception;
 
 /**
  * Class Parser
+ *
  * @package Cli
  */
 class Parser
 {
+
     use ModelParser;
     use Browser;
 
@@ -18,6 +20,7 @@ class Parser
 
     /**
      * Parser constructor.
+     *
      * @throws Exception
      */
     function __construct()
@@ -30,11 +33,11 @@ class Parser
         }
         if (!is_dir(IMAGE_DIRECTORY)) {
             if (!is_dir(IMAGE_DIRECTORY)) {
-                _log('Creating images directory ' . IMAGE_DIRECTORY);
+                _log('Creating images directory '.IMAGE_DIRECTORY);
                 if (!mkdir(IMAGE_DIRECTORY)) {
                     throw new Exception(sprintf('Parser error: Unable to create images directory %s', IMAGE_DIRECTORY));
                 }
-                file_put_contents(CACHE_PARSER_DIRECTORY . '.htaccess', 'Order Allow, Deny\nphp_flag engine off' . PHP_EOL);
+                file_put_contents(CACHE_PARSER_DIRECTORY.'.htaccess', 'Order Allow, Deny\nphp_flag engine off'.PHP_EOL);
             }
         }
     }
@@ -50,6 +53,7 @@ class Parser
      * @param string $url
      * @param int $loadId
      * @param int $filmTypeId
+     *
      * @throws Exception
      */
     private function parseTopFilms(string $url, int $loadId, int $filmTypeId)
@@ -70,10 +74,10 @@ class Parser
                     }
                     $item['name'] = preg_replace('/\[(\d{4}?)]/', '', $item['name']);
                     $item = array_map(
-                        function ($value) {
-                            return trim(strip_tags($value));
-                        },
-                        $item
+                      function ($value) {
+                          return trim(strip_tags($value));
+                      },
+                      $item
                     );
                     if (!$item['film_id'] = $this->getFilmId($item)) {
                         $this->parseFilm($item);
@@ -81,8 +85,12 @@ class Parser
                     }
                     $item['load_id'] = $loadId;
                     $item['film_type_id'] = $filmTypeId;
-                    $rateId = $this->saveRate($item);
-                    _log('Saved rate id: ' . $rateId);
+                    try {
+                        $rateId = $this->saveRate($item);
+                    } catch (Exception $exception) {
+                        _log('Error saving film? db error: '.$exception->getCode());
+                    }
+                    _log('Saved rate id: '.$rateId);
                 }
             }
         }
@@ -90,13 +98,15 @@ class Parser
 
     /**
      * @param $url
+     *
      * @return string|string[]
      */
     private function fetchImage($url)
     {
         $cacheFile = $this->getPage($url, true);
         $imgFile = pathinfo($cacheFile, PATHINFO_BASENAME);
-        copy($cacheFile, IMAGE_DIRECTORY . $imgFile);
+        copy($cacheFile, IMAGE_DIRECTORY.$imgFile);
+
         return $imgFile;
     }
 
@@ -105,15 +115,16 @@ class Parser
      */
     private function parseFilm(array &$item)
     {
-        _log('Parsing film: ' . $item['word_art_id']);
+        _log('Parsing film: '.$item['word_art_id']);
         $page = $this->getPage(sprintf(PARSER_FILM_URL, $item['word_art_id']), false);
         if (preg_match('/<p align=justify class=\'review\'>(.*?)<\/p>/', $page, $matches)) {
             $item['description'] = $matches[1];
         }
-        if (preg_match('/<img src=\'(img\/\d+\/' . $item['word_art_id'] . '\/\d+.jpg)\' width=300 border=1 alt=/', $page, $matches)) {
+        if (preg_match('/<img src=\'(img\/\d+\/'.$item['word_art_id'].'\/\d+.jpg)\' width=300 border=1 alt=/', $page, $matches)) {
             $item['cover'] = $this->fetchImage($matches[1]);
         }
-//        _log('Parsing history info for film: '.$item['word_art_id']);
-//        $page = $this->getPage(sprintf(PARSER_FILM_HISTORY, $item['word_art_id']), false);
+        //        _log('Parsing history info for film: '.$item['word_art_id']);
+        //        $page = $this->getPage(sprintf(PARSER_FILM_HISTORY, $item['word_art_id']), false);
     }
+
 }

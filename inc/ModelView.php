@@ -35,8 +35,6 @@ trait ModelView
      */
     public function getRatingList(int $filmTypeId, int $loadId, string $orderBy): array
     {
-        $filmTypeId = intval($filmTypeId);
-        $loadId = intval($loadId);
         $dir = WEB_IMAGE_DIRECTORY;
         $sql = <<<SQL
 Select r.id as rating_id, f.id, r.position, f.name, f.year, r.calc_ball, r.votes, r.avg_ball, concat('$dir',f.cover) as cover
