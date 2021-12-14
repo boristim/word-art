@@ -32,8 +32,8 @@ const CACHE_PARSER_PERIOD = 3600 * 24 * 7;
 //define('CACHE_PARSER_PERIOD', 0);
 
 // Images
-define('IMAGE_DIRECTORY', __DIR__ . '/images/');
+const IMAGE_DIRECTORY = __DIR__ . '/images/';
 // HTML templates
-define('TEMPLATE_DIRECTORY', __DIR__ . '/tpl/');
+const TEMPLATE_DIRECTORY = __DIR__ . '/tpl/';
 // images web
-define('WEB_IMAGE_DIRECTORY', '/images/');
+const WEB_IMAGE_DIRECTORY = '/images/';
