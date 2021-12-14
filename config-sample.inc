@@ -29,7 +29,7 @@ const CRON_KEY = '111';
 const CACHE_PARSER_DIRECTORY = __DIR__ . '/cache/';
 // Parser files cache period, in seconds
 const CACHE_PARSER_PERIOD = 3600 * 24 * 7;
-//define('CACHE_PARSER_PERIOD', 0);
+
 
 // Images
 const IMAGE_DIRECTORY = __DIR__ . '/images/';
