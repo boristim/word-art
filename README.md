@@ -1,4 +1,4 @@
-Pure PHP 8+, pure ES7, pure CSS3+
+Pure PHP 8+, pure ES14, pure CSS3+
 
 Config see in `config-sample.inc`, edit and save as `config.inc`
 
